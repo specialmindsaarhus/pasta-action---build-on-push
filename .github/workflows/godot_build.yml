@@ -19,23 +19,11 @@ jobs:
           Invoke-WebRequest -Uri "https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_win64.exe.zip" -OutFile "godot.zip"
           Expand-Archive -Path "godot.zip" -DestinationPath "."
           Rename-Item -Path "Godot_v4.1.1-stable_win64.exe" -NewName "godot.exe"
-          $godotPath = "$(pwd)\godot.exe"
-          echo "Godot path: $godotPath"
-      
+          echo "Godot path: $(pwd)\godot.exe" >> $env:GITHUB_ENV
+
       - name: Ensure build directory exists
         run: mkdir build\html5
 
       - name: Export to HTML5
         run: |
-          $godotPath --headless --verbose --export "HTML5" "build/html5/index.html" || exit 1
-
-      - name: Debug Build Output
-        run: |
-          echo "Listing files in build/html5/"
-          dir build\html5
-
-      - name: Upload HTML5 Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: exported-html5
-          path: build/html5/
+          & "$env:GODOT_PATH" --headless --verbose --export "HTML5" "bu
