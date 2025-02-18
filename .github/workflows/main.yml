@@ -1,0 +1,32 @@
+name: Godot CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Eller den branch du vil bygge på
+  pull_request:
+
+jobs:
+  export-game:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Godot
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_linux.x86_64.zip
+          unzip Godot_v4.1.1-stable_linux.x86_64.zip
+          mv Godot_v4.1.1-stable_linux.x86_64 /usr/local/bin/godot
+          chmod +x /usr/local/bin/godot
+
+      - name: Export game
+        run: |
+          godot --headless --export-release "Linux/X11" ./build/game.x86_64
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: exported-game
+          path: build/
