@@ -11,6 +11,10 @@ jobs:
     runs-on: windows-latest  # Skifter fra Ubuntu til Windows
 
     steps:
+      - name: Export to HTML5
+        run: |
+          .\godot.exe --headless --verbose --export "HTML5" "build/html5/index.html" || exit 1
+          
       - name: Checkout repository
         uses: actions/checkout@v4
 
