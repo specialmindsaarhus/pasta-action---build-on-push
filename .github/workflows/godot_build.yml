@@ -3,22 +3,24 @@ name: Godot HTML5 Export
 on:
   push:
     branches:
-      - main  # Trigger workflow when pushing to the main branch
+      - main
   pull_request:
 
 jobs:
   export-game:
-    runs-on: ubuntu-latest  # Skift til Linux
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Godot
+      - name: Download and Install Godot Headless
         run: |
-          wget https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_linux_headless.64 -O godot
-          chmod +x godot
-          mv godot /usr/local/bin/godot
+          GODOT_VERSION=4.1.1-stable  # <--- Opdater denne hvis der er en nyere version!
+          wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION_linux.x86_64.zip -O godot.zip
+          unzip godot.zip
+          chmod +x Godot_v$GODOT_VERSION_linux.x86_64
+          mv Godot_v$GODOT_VERSION_linux.x86_64 /usr/local/bin/godot
 
       - name: Ensure build directory exists
         run: mkdir -p build/html5
