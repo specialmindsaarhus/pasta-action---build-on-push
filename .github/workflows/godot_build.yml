@@ -1,14 +1,14 @@
-name: Godot CI/CD
+name: Godot HTML5 Export
 
 on:
   push:
     branches:
-      - main  # Kør workflow på pushes til main branch
+      - main  # Kør workflow når vi pusher til main
   pull_request:
 
 jobs:
   export-game:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Skifter fra Ubuntu til Windows
 
     steps:
       - name: Checkout repository
@@ -16,23 +16,21 @@ jobs:
 
       - name: Download Godot
         run: |
-          wget https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_linux.x86_64.zip
-          unzip Godot_v4.1.1-stable_linux.x86_64.zip
-          mv Godot_v4.1.1-stable_linux.x86_64 /usr/local/bin/godot
-          chmod +x /usr/local/bin/godot
+          Invoke-WebRequest -Uri "https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_win64.exe.zip" -OutFile "godot.zip"
+          Expand-Archive -Path "godot.zip" -DestinationPath "."
+          Rename-Item -Path "Godot_v4.1.1-stable_win64.exe" -NewName "godot.exe"
 
       - name: Ensure build directory exists
-        run: mkdir -p build
+        run: mkdir build\html5
 
-      - name: Export game
-        run: |
-          godot --headless --export-release "Linux/X11" ./build/game.x86_64
+      - name: Export to HTML5
+        run: .\godot.exe --headless --verbose --export-release "HTML5" "build/html5/index.html"
+      
+      - name: Debug Build Output
+        run: dir build\html5
 
-      - name: Debug Build Directory
-        run: ls -R build
-
-      - name: Upload Build Artifact
+      - name: Upload HTML5 Build
         uses: actions/upload-artifact@v4
         with:
-          name: exported-game
-          path: build/
+          name: exported-html5
+          path: build/html5/
