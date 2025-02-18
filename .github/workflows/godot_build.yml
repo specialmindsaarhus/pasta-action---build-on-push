@@ -8,31 +8,26 @@ on:
 
 jobs:
   export-game:
-    runs-on: windows-latest  # Use a Windows runner
+    runs-on: ubuntu-latest  # Skift til Linux
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download Godot
+      - name: Install Godot
         run: |
-          Invoke-WebRequest -Uri "https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_win64.exe.zip" -OutFile "godot.zip"
-          Expand-Archive -Path "godot.zip" -DestinationPath "."
-          Rename-Item -Path "Godot_v4.1.1-stable_win64.exe" -NewName "godot.exe"
-          echo "GODOT_PATH=$(Resolve-Path .\godot.exe)" >> $GITHUB_ENV
+          wget https://github.com/godotengine/godot/releases/download/4.1.1-stable/Godot_v4.1.1-stable_linux_headless.64 -O godot
+          chmod +x godot
+          mv godot /usr/local/bin/godot
 
       - name: Ensure build directory exists
-        run: mkdir build\html5 -Force
+        run: mkdir -p build/html5
 
       - name: Export to HTML5
-        run: |
-          $godot = Resolve-Path "$env:GODOT_PATH"
-          & $godot --headless --verbose --export "HTML5" "build/html5/index.html"
-      
+        run: godot --headless --verbose --export-release "HTML5" "build/html5/index.html"
+
       - name: Debug Build Output
-        run: |
-          echo "Listing files in build/html5/"
-          dir build\html5
+        run: ls -la build/html5
 
       - name: Upload HTML5 Build
         uses: actions/upload-artifact@v4
