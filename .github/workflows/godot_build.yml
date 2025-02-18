@@ -3,7 +3,7 @@ name: Godot CI/CD
 on:
   push:
     branches:
-      - main  # Eller den branch du vil bygge på
+      - main  # Kør workflow på pushes til main branch
   pull_request:
 
 jobs:
@@ -21,12 +21,18 @@ jobs:
           mv Godot_v4.1.1-stable_linux.x86_64 /usr/local/bin/godot
           chmod +x /usr/local/bin/godot
 
+      - name: Ensure build directory exists
+        run: mkdir -p build
+
       - name: Export game
         run: |
           godot --headless --export-release "Linux/X11" ./build/game.x86_64
 
+      - name: Debug Build Directory
+        run: ls -R build
+
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: exported-game
           path: build/
