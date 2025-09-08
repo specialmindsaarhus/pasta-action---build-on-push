@@ -1,24 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgqlngdag6mj4"]
+[gd_scene load_steps=10 format=3 uid="uid://cgqlngdag6mj4"]
 
 [ext_resource type="PackedScene" uid="uid://0ufcq6r8bdbe" path="res://Level 1234/coins.tscn" id="1_dgnby"]
 [ext_resource type="PackedScene" uid="uid://xdipxfw3ivia" path="res://Level 1234/silm.tscn" id="2_eahxo"]
 [ext_resource type="Texture2D" uid="uid://btabhjps2re0i" path="res://assets/sprites/world_tileset.png" id="3_r2iq5"]
 [ext_resource type="PackedScene" uid="uid://cbwephn1nivc8" path="res://Level 1234/character_body_2d.tscn" id="4_175je"]
 [ext_resource type="PackedScene" uid="uid://ep5rveecteys" path="res://Level 1234/killzone_2.tscn" id="5_82s0a"]
-[ext_resource type="AudioStream" uid="uid://b8x0g4k38nvm3" path="res://assets/music/The-Plastered-Pelicans-Polka.mp3" id="6_6tfuj"]
-[ext_resource type="Script" path="res://Level 1234/game_manager.gd" id="7_kr6tm"]
 [ext_resource type="PackedScene" uid="uid://dew0npylqgppn" path="res://Level 1234/next_level.tscn" id="8_svg4i"]
-[ext_resource type="PackedScene" uid="uid://btx8kjwjha5l2" path="res://pause_menu.tscn" id="9_haqa5"]
-
-[sub_resource type="GDScript" id="GDScript_kxfcr"]
-script/source = "extends Area2D
-
-const FILE_BEGIN = \"res://levels/level_\"
-
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"Player\"):
-		print(\"collided with player\")
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8r36"]
 texture = ExtResource("3_r2iq5")
@@ -197,7 +184,7 @@ sources/0 = SubResource("TileSetAtlasSource_g8r36")
 [node name="coins" type="Node" parent="."]
 
 [node name="coin" parent="coins" instance=ExtResource("1_dgnby")]
-position = Vector2(485, 151)
+position = Vector2(487, 152)
 
 [node name="coin2" parent="coins" instance=ExtResource("1_dgnby")]
 position = Vector2(230, 313)
@@ -216,12 +203,6 @@ position = Vector2(1655, -71)
 
 [node name="coin7" parent="coins" instance=ExtResource("1_dgnby")]
 position = Vector2(1799, 57)
-
-[node name="Area2D" type="Area2D" parent="coins"]
-top_level = true
-light_mask = 2
-position = Vector2(390, 143)
-script = SubResource("GDScript_kxfcr")
 
 [node name="coin8" parent="coins" instance=ExtResource("1_dgnby")]
 position = Vector2(2006, 41)
@@ -278,22 +259,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone 2"]
 shape = SubResource("WorldBoundaryShape2D_s3s0x")
 
-[node name="GameManager" type="Node" parent="killzone 2"]
-unique_name_in_owner = true
-script = ExtResource("7_kr6tm")
-
-[node name="music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_6tfuj")
-autoplay = true
-bus = &"music"
-
 [node name="next level" parent="." instance=ExtResource("8_svg4i")]
 position = Vector2(2672, 15)
 collision_mask = 2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_haqa5")]
-
-[connection signal="body_entered" from="coins/Area2D" to="coins/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="coins/Area2D" to="coins/Area2D" method="_on_body_exited"]
+next_level_path = "res://levels/level_3.tscn"

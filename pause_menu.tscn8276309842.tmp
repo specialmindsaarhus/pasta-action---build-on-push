@@ -14,6 +14,8 @@ grow_vertical = 2
 script = ExtResource("1_m70q5")
 
 [node name="PanelContainer2" type="PanelContainer" parent="."]
+modulate = Color(0.737255, 0.686275, 0.498039, 0.494118)
+show_behind_parent = true
 layout_mode = 0
 offset_left = -24.0
 offset_top = -16.0

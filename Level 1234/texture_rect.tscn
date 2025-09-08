@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://djy8r5kg12krg"]
+
+[ext_resource type="Texture2D" uid="uid://2wg155mibreb" path="res://SPM_Faviconpng (2).png" id="1_ggrg8"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 167.0
+offset_bottom = 167.0
+texture = ExtResource("1_ggrg8")
+expand_mode = 1

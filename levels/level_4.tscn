@@ -1,13 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bokjecjmcjkmm"]
+[gd_scene load_steps=12 format=3 uid="uid://bokjecjmcjkmm"]
 
 [ext_resource type="PackedScene" uid="uid://cbwephn1nivc8" path="res://Level 1234/character_body_2d.tscn" id="1_70ura"]
 [ext_resource type="Texture2D" uid="uid://btabhjps2re0i" path="res://assets/sprites/world_tileset.png" id="2_k0f3o"]
 [ext_resource type="PackedScene" uid="uid://cclf47essshq" path="res://Level 1234/nice_slime.tscn" id="3_nsfc3"]
 [ext_resource type="PackedScene" uid="uid://ep5rveecteys" path="res://Level 1234/killzone_2.tscn" id="4_0oute"]
 [ext_resource type="FontFile" uid="uid://cin75jg6ch6xt" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="5_rhf70"]
-[ext_resource type="PackedScene" uid="uid://btx8kjwjha5l2" path="res://pause_menu.tscn" id="6_2lkyh"]
 [ext_resource type="AudioStream" uid="uid://b8x0g4k38nvm3" path="res://assets/music/The-Plastered-Pelicans-Polka.mp3" id="7_3qgoo"]
-[ext_resource type="Script" path="res://Level 1234/game_manager.gd" id="8_atwfc"]
+[ext_resource type="Script" uid="uid://c81n4fy4f1xtk" path="res://Level 1234/game_manager.gd" id="8_atwfc"]
 [ext_resource type="PackedScene" uid="uid://0ufcq6r8bdbe" path="res://Level 1234/coins.tscn" id="9_aqlm2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0jm2a"]
@@ -243,10 +242,6 @@ offset_bottom = -2.0
 theme_override_fonts/font = ExtResource("5_rhf70")
 theme_override_font_sizes/font_size = 8
 text = "YOU WON "
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_2lkyh")]
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_3qgoo")
