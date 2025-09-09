@@ -38,7 +38,11 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          
+          #make dir if not excist
+          - name: Create Export Folder
+            shell: bash
+            run: mkdir -p build/linux
+
 
           # Export for Linux
           - name: 🐧 Linux
