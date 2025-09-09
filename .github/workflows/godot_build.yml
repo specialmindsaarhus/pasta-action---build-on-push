@@ -45,6 +45,15 @@ jobs:
             export-folder: build/linux
             archive: Linux
             butler-channel: linux
+          
+          - name: 🪟 Windows
+            os: windows-latest
+            platform: windows
+            export-preset: Windows Desktop
+            export-type: release
+            export-folder: build/windows
+            archive: Windows
+
 
     steps:
       - name: Checkout
