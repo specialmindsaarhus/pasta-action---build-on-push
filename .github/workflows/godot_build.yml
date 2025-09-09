@@ -1,0 +1,98 @@
+# This workflow file build the Godot project for multiple target systems.
+---
+
+
+# Build workflow
+name: Build
+
+
+# Trigger rules (adjust to configure when CI is performed)
+on:
+  [push, pull_request]
+
+
+# Environment variables
+env:
+  # Configure Godot version
+  GODOT_VERSION: 4.3.0
+
+  # OpenXR Vendors version
+  OPENXR_VENDORS_VERSION: 3.1.0-stable
+  
+  # Butler API Key (comment to disable)
+  BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+  
+  # Butler User/Game (set to itch.io user/game)
+  BUTLER_USER_GAME: malcolmnixon/godotcibuilddemo
+
+
+# CI jobs
+jobs:
+  build:
+    name: Building for ${{ matrix.name }}
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - name: 🐧 Linux
+            os: ubuntu-22.04
+            platform: linux
+            export-preset: Linux
+            export-type: release
+            export-folder: build/linux
+            archive: Linux
+            butler-channel: linux
+          
+          - name: 🪟 Windows
+            os: windows-latest
+            platform: windows
+            export-preset: Windows Desktop
+            export-type: release
+            export-folder: build/windows
+            archive: Windows
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Create export folder
+      - name: Create Export Folder
+        shell: bash
+        run: mkdir -p build/linux
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+          include-templates: true
+
+      - name: Initial Godot Import
+        shell: bash
+        run: |
+          godot --headless --import || exit 0
+
+      - name: Export Godot Project
+        shell: bash
+        run: >
+          godot
+          --headless
+          ${{ matrix.export-args }}
+          --export-${{ matrix.export-type }} "${{ matrix.export-preset }}"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.archive }}-Artifacts
+          path: |
+            ${{ matrix.export-folder }}/*.*
+            !**/.gitignore
+
+
+     
+
+      

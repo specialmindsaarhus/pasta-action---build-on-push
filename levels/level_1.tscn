@@ -1,7 +1,5 @@
-[gd_scene load_steps=20 format=3 uid="uid://biihui86gyio8"]
+[gd_scene load_steps=17 format=3 uid="uid://biihui86gyio8"]
 
-[ext_resource type="AudioStream" uid="uid://b8x0g4k38nvm3" path="res://assets/music/The-Plastered-Pelicans-Polka.mp3" id="1_tfat6"]
-[ext_resource type="Script" path="res://Level 1234/game_manager.gd" id="2_i6ptx"]
 [ext_resource type="PackedScene" uid="uid://xdipxfw3ivia" path="res://Level 1234/silm.tscn" id="3_s17xo"]
 [ext_resource type="PackedScene" uid="uid://0ufcq6r8bdbe" path="res://Level 1234/coins.tscn" id="4_tiqfp"]
 [ext_resource type="PackedScene" uid="uid://cbwephn1nivc8" path="res://Level 1234/character_body_2d.tscn" id="5_b7cma"]
@@ -12,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bh1pmvp8tlssy" path="res://Level 1234/slim_2.tscn" id="10_1iyoy"]
 [ext_resource type="PackedScene" uid="uid://cclf47essshq" path="res://Level 1234/nice_slime.tscn" id="11_071m6"]
 [ext_resource type="FontFile" uid="uid://cin75jg6ch6xt" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="12_kxdhf"]
-[ext_resource type="PackedScene" uid="uid://btx8kjwjha5l2" path="res://pause_menu.tscn" id="13_32w2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uvjv0"]
 texture = ExtResource("6_0s5ge")
@@ -218,41 +215,27 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n2idr"]
 _data = {
-"RESET": SubResource("Animation_wyn7b"),
-"platform1": SubResource("Animation_c24m7")
+&"RESET": SubResource("Animation_wyn7b"),
+&"platform1": SubResource("Animation_c24m7")
 }
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cl0fx"]
 
 [node name="level_1" type="Node2D"]
-position = Vector2(9, 0)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("13_32w2o")]
-
-[node name="GameManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("2_i6ptx")
-
-[node name="music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_tfat6")
-autoplay = true
-bus = &"music"
 
 [node name="spikes" type="Node" parent="."]
 
 [node name="killblock4" parent="spikes" instance=ExtResource("10_1iyoy")]
-position = Vector2(2641, -4)
+position = Vector2(2633, -4)
 
 [node name="killblock3" parent="spikes" instance=ExtResource("10_1iyoy")]
-position = Vector2(2577, -4)
+position = Vector2(2569, -4)
 
 [node name="killblock2" parent="spikes" instance=ExtResource("10_1iyoy")]
-position = Vector2(2337, -164)
+position = Vector2(2329, -164)
 
 [node name="killblock" parent="spikes" instance=ExtResource("10_1iyoy")]
-position = Vector2(1809, 12)
+position = Vector2(1801, 12)
 
 [node name="slimes" type="Node" parent="."]
 
@@ -268,38 +251,38 @@ position = Vector2(543, 178)
 [node name="coins" type="Node" parent="."]
 
 [node name="coin8" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(2213, -104)
+position = Vector2(2206, -103)
 
 [node name="coin" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(375, 170)
+position = Vector2(368, 171)
 
 [node name="coin2" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(519, 105)
+position = Vector2(512, 106)
 
 [node name="coin3" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(871, 89)
+position = Vector2(864, 90)
 
 [node name="coin4" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(743, 137)
+position = Vector2(736, 138)
 
 [node name="coin5" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(1512, 137)
+position = Vector2(1505, 138)
 
 [node name="coin6" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(1088, 91)
+position = Vector2(1081, 92)
 
 [node name="coin7" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(2183, -103)
+position = Vector2(2176, -102)
 
 [node name="coin9" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(2243, -103)
+position = Vector2(2236, -102)
 
 [node name="coin10" parent="coins" instance=ExtResource("4_tiqfp")]
-position = Vector2(2454, 73)
+position = Vector2(2447, 74)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_b7cma")]
 top_level = true
-position = Vector2(236, 103)
+position = Vector2(227, 54)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 position = Vector2(90, 66)
@@ -308,7 +291,7 @@ limit_bottom = 230
 limit_smoothed = true
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(-9, 0)
+position = Vector2(-8, 0)
 tile_set = SubResource("TileSet_ssamu")
 format = 2
 layer_0/name = "back"
@@ -322,33 +305,32 @@ position = Vector2(959, 133)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_n2idr")
+&"": SubResource("AnimationLibrary_n2idr")
 }
 autoplay = "platform1"
 
 [node name="killzone 2" parent="." instance=ExtResource("8_68sdw")]
-position = Vector2(520, 288)
+position = Vector2(521, 288)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone 2"]
 shape = SubResource("WorldBoundaryShape2D_cl0fx")
 
-[node name="next level" parent="." instance=ExtResource("9_16mj5")]
-light_mask = 1
-position = Vector2(2821, 63)
-collision_mask = 2
-
 [node name="nice slime" parent="." instance=ExtResource("11_071m6")]
-position = Vector2(408, 149)
+position = Vector2(609, 68)
 
 [node name="Label" type="Label" parent="."]
-offset_left = 354.0
+offset_left = 355.0
 offset_top = 120.0
-offset_right = 472.0
+offset_right = 477.0
 offset_bottom = 162.0
 theme_override_fonts/font = ExtResource("12_kxdhf")
 theme_override_font_sizes/font_size = 8
 text = "please get all my 
  Spaghetti back"
+metadata/_edit_use_anchors_ = true
 
-[connection signal="child_entered_tree" from="CharacterBody2D" to="GameManager" method="_on_character_body_2d_child_entered_tree"]
+[node name="next level" parent="." instance=ExtResource("9_16mj5")]
+position = Vector2(2815, 65)
+collision_mask = 2
+next_level_path = "res://levels/level_2.tscn"

@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://clalrphyakh8m"]
+
+[ext_resource type="Script" uid="uid://kddyrp2sjvwt" path="res://Level 1234/root.gd" id="1_35soa"]
+[ext_resource type="PackedScene" uid="uid://csp36ta41ae70" path="res://Level 1234/level_container.tscn" id="1_87bei"]
+[ext_resource type="AudioStream" uid="uid://b8x0g4k38nvm3" path="res://assets/music/The-Plastered-Pelicans-Polka.mp3" id="1_xa64q"]
+[ext_resource type="PackedScene" uid="uid://btx8kjwjha5l2" path="res://pause_menu.tscn" id="3_yw3lp"]
+[ext_resource type="Script" uid="uid://u3epyu8nafa" path="res://Level 1234/deaths_panel.gd" id="5_70meg"]
+[ext_resource type="Texture2D" uid="uid://2wg155mibreb" path="res://SPM_Faviconpng (2).png" id="6_72pdq"]
+[ext_resource type="Script" uid="uid://bipead1ovdl0s" path="res://Level 1234/died_message.gd" id="6_d2gjk"]
+[ext_resource type="FontFile" uid="uid://cin75jg6ch6xt" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="7_d2gjk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hx2ke"]
+bg_color = Color(0.196078, 0.239216, 0.309804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72pdq"]
+draw_center = false
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_35soa")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_xa64q")
+autoplay = true
+bus = &"music"
+
+[node name="LevelContainer" parent="." instance=ExtResource("1_87bei")]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DeathsPanel" type="Control" parent="CanvasLayer"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1011.0
+offset_bottom = -614.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_70meg")
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/DeathsPanel"]
+layout_mode = 0
+offset_right = 119.0
+offset_bottom = 35.0
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer/DeathsPanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 111.0
+offset_bottom = 31.0
+text = "Lives: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_yw3lp")]
+visible = false
+
+[node name="Died_message" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_d2gjk")
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Died_message"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -598.0
+offset_top = -347.0
+offset_right = 604.0
+offset_bottom = 344.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hx2ke")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Died_message"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -170.5
+offset_right = 92.0
+offset_bottom = 170.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Died_message/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_72pdq")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Label3" type="Label" parent="CanvasLayer/Died_message/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.627451, 0.6, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_72pdq")
+text = "special minds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Died_message/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.627451, 0.6, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_72pdq")
+text = "af mads
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="resume" type="Button" parent="CanvasLayer/Died_message/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_d2gjk")
+text = "TO PLAY"
+
+[node name="Label" type="Label" parent="CanvasLayer/Died_message/VBoxContainer"]
+layout_mode = 2
+text = "press start"
+horizontal_alignment = 1

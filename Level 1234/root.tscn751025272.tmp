@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://clalrphyakh8m"]
+
+[ext_resource type="Script" uid="uid://kddyrp2sjvwt" path="res://Level 1234/root.gd" id="1_35soa"]
+[ext_resource type="PackedScene" uid="uid://csp36ta41ae70" path="res://Level 1234/level_container.tscn" id="1_87bei"]
+[ext_resource type="AudioStream" uid="uid://b8x0g4k38nvm3" path="res://assets/music/The-Plastered-Pelicans-Polka.mp3" id="1_xa64q"]
+[ext_resource type="PackedScene" uid="uid://btx8kjwjha5l2" path="res://pause_menu.tscn" id="3_yw3lp"]
+[ext_resource type="Script" uid="uid://u3epyu8nafa" path="res://Level 1234/deaths_panel.gd" id="5_70meg"]
+[ext_resource type="Script" uid="uid://bipead1ovdl0s" path="res://Level 1234/died_message.gd" id="6_d2gjk"]
+[ext_resource type="PackedScene" uid="uid://djy8r5kg12krg" path="res://Level 1234/texture_rect.tscn" id="7_72pdq"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_35soa")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_xa64q")
+autoplay = true
+bus = &"music"
+
+[node name="LevelContainer" parent="." instance=ExtResource("1_87bei")]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_yw3lp")]
+visible = false
+
+[node name="DeathsPanel" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1011.0
+offset_bottom = -614.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_70meg")
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/DeathsPanel"]
+layout_mode = 0
+offset_right = 119.0
+offset_bottom = 35.0
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer/DeathsPanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 111.0
+offset_bottom = 31.0
+text = "Lives: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Died_message" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_d2gjk")
+
+[node name="Label" type="Label" parent="CanvasLayer/Died_message"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TextureRect" parent="CanvasLayer/Died_message" instance=ExtResource("7_72pdq")]
+layout_mode = 0
