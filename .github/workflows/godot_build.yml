@@ -28,23 +28,15 @@ env:
 
 # CI jobs
 jobs:
-  # Build job (Matrix build for all exports)
   build:
     name: Building for ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-22.04
     permissions:
       contents: write
     strategy:
       fail-fast: true
       matrix:
         include:
-          #make dir if not excist
-          - name: Create Export Folder
-            shell: bash
-            run: mkdir -p build/linux
-
-
-          # Export for Linux
           - name: 🐧 Linux
             os: ubuntu-22.04
             platform: linux
@@ -54,16 +46,15 @@ jobs:
             archive: Linux
             butler-channel: linux
 
-          
-
     steps:
-      # Check out the repository
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Create export folder
+      - name: Create Export Folder
+        shell: bash
+        run: mkdir -p build/linux
 
-
-      # Setup Godot
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
@@ -71,13 +62,11 @@ jobs:
           use-dotnet: false
           include-templates: true
 
-      # Import Godot Project
       - name: Initial Godot Import
         shell: bash
         run: |
           godot --headless --import || exit 0
 
-      # Export project
       - name: Export Godot Project
         shell: bash
         run: >
@@ -86,7 +75,6 @@ jobs:
           ${{ matrix.export-args }}
           --export-${{ matrix.export-type }} "${{ matrix.export-preset }}"
 
-      # Upload artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
